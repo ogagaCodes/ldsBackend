@@ -2,9 +2,9 @@ import { createLogger, transports, format } from 'winston';
 import fs from 'fs';
 import path from 'path';
 import DailyRotateFile from 'winston-daily-rotate-file';
-import { environment, logDirectory } from '../config';
+import * as Config from '../../src/Config/index';
 
-let dir = logDirectory;
+let dir = Config.Config.logDirectory;
 if (!dir) dir = path.resolve('logs');
 
 // create directory if it is not present
@@ -13,7 +13,7 @@ if (!fs.existsSync(dir)) {
   fs.mkdirSync(dir);
 }
 
-const logLevel = environment === 'development' ? 'debug' : 'warn';
+const logLevel = Config.Config.environment === 'development' ? 'debug' : 'warn';
 
 const dailyRotateFile = new DailyRotateFile({
   level: logLevel,
