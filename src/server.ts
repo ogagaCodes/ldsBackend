@@ -1,9 +1,10 @@
 import Logger from './core/Logger';
-import { port } from './config';
+import * as Config from './config';
 import app from './app';
-
+import * as dotenv from 'dotenv';
+dotenv.config();
 app
-  .listen(port, () => {
-    Logger.info(`server running on port : ${port}`);
+  .listen(Config.Server.port, () => {
+    Logger.info(`server running on port : ${Config.Server.port}`);
   })
-  .on('error', (e: unknown) => Logger.error(e));
+  .on('error', (e) => Logger.error(e));

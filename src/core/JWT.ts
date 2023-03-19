@@ -1,6 +1,6 @@
 
 import { sign, verify } from 'jsonwebtoken';
-import { BadTokenError, TokenExpiredError } from './ApiError';
+import { BadTokenError } from './APiError';
 import Logger from './Logger';
 
 /*
@@ -45,9 +45,9 @@ async function encode(payload: JwtPayload): Promise<string> {
 async function validate(token: string): Promise<JwtPayload> {
   try {
     return (await verify(token, "tyhbhbvchbj")) as JwtPayload;
-  } catch (e: any) {
+  } catch (e) {
     Logger.debug(e);
-    if (e && e.name === 'TokenExpiredError') throw new TokenExpiredError();
+    // if (e && e.name === 'TokenExpiredError') throw new TokenExpiredError();
     // throws error if the token has not been encrypted by the private key
     throw new BadTokenError();
   }
